@@ -1,0 +1,67 @@
+Objective - Web Application
+
+1. data collection through API
+	-Weather data
+		-get and API key
+		-python script with requests
+			look at json file and write code to get it
+			save file with name as date & time
+			file format json
+			get only what we need, in json
+		-schedule task python for every 5 mins
+
+	-Dublin bikes data
+		-get and API key
+		-python script with requests
+			look at json file and write code to get it
+			save file with name as date & time
+			file format json
+			get only what we need, in json
+		-schedule task python for every 5 mins
+ 2. data management/storage in DB on AWS 
+	-Look at Library boto - python interface to all AWS
+	-get a DB on AWS
+	-(this can be a later task, for development save files in persistent EC2 - I have this)
+
+3. display bike stations on map
+	-Google map & API key for it
+	-HTML page 
+	-javascript to insert items into map
+		- colours / big and small circles etc
+ 4. occupancy information
+	-our json file we downloaded living in EC2
+ 5. weather information 
+	-our json file we downloaded living in EC2
+
+6. interactivity (click, API request, handle response) 
+	-javascript on the website, similar to weather project S1
+
+7. project served on EC2
+	-get a free EC2 instance for the team
+ 8. Github repo 
+	-team repo
+
+Bare minimum for prototype:
+	-webpage mock up with a Google map and some graphs
+	-sample mock data file for bike info - we have been given this…
+	-sample mock data file for weather info - we have been given this…
+	-basic javascript to read these files and display in web page
+	-webserver - flask 
+		-run flask
+		-connect web browser to flask
+		-then flask provides the web page to run	
+
+
+Time sensitive issues:
+	- one week of data required
+	- prototype ready by certain timeline 
+
+
+Backlog: AGREE ON EXPECTED OUTCOMES FOR EACH OF THESE!!!
+	- mock web page as above
+	- get some API bike data and look at json so that we can write the python script for it
+		- javascript to read this info
+	- get some API weather data and look at json so that we can write the python script for it
+		- javascript to read this info
+	- flask - find out how we use flask and run one of our web projects on flask
+

@@ -6,15 +6,25 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route("/weather")
-def weather():
-    resp = make_response(render_template('weather.json'), 200)
+@app.route("/weather/")
+@app.route("/weather/<time_stamp>")
+def weather(time_stamp=None):
+    if time_stamp == None:
+        # list available timestamps
+        resp = make_response("['2017-03-19-124910','2017-03-19-124958']", 200)
+    else:
+        resp = make_response(render_template('weather-'+time_stamp+'.json'), 200)
     resp.headers['Content-Type'] = 'application/json; charset=utf-8'
     return resp
 
-@app.route("/stations")
-def stations():
-    resp = make_response(render_template('stations.json'), 200)
+@app.route("/stations/")
+@app.route("/stations/<time_stamp>")
+def stations(time_stamp=None):
+    if time_stamp == None:
+        # list available timestamps
+        resp = make_response("['2017-03-19-124902','2017-03-19-124953']", 200)
+    else:
+        resp = make_response(render_template('stations-'+time_stamp+'.json'), 200)
     resp.headers['Content-Type'] = 'application/json; charset=utf-8'
     return resp
 
