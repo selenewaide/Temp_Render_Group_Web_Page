@@ -1,0 +1,19 @@
+Meeting Minutes
+
+Date/Place: 7 April 2017 12pm, CS B003
+Attendees: Selene Waide, Louise Klodt
+
+Goals: decide on new scrum master, lay out plan for next sprint (starting Monday 10/4/2017), update on current project status
+
+Achieved:
+- decided on new scrum master (Louise Klodt); 
+- successfully created database with team access; 
+- successfully connected flask to db: able to fetch data and send query results to browser
+
+Agreed on: 
+- Louise Klodt will design database schema (tables, columns etc.) over the weekend
+- Selene Waide will check team access to db again, to make sure everyone can access db
+- agreed on daily standups at beginning of lunch break from next week onward (10mins length)
+
+Next meeting:
+Monday, 10 April, during Practical, no daily standup on Monday (as meeting for next scrum first)
