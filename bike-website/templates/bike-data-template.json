@@ -1,0 +1,18 @@
+{
+        "number":42,
+        "name":"SMITHFIELD NORTH",
+        "address":"Smithfield North",
+        "position": {
+            "lat": 53.349562,
+            "lng":-6.278198
+        },
+        "banking":true,
+        "bonus":false,
+        "status":"OPEN",
+        "contract_name":"Dublin",
+        "bike_stands":30,
+        "available_bike_stands":30,
+        "available_bikes":0,
+        "last_update":1490958848000
+    }
+    

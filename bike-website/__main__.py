@@ -18,7 +18,6 @@ mysql = MySQL(app)
 @app.route("/")
 def connectdb():
     cur = mysql.connection.cursor() # create cursor to query db
-    print(cur)
     cur.execute("SELECT * from BikeData")
     rv = cur.fetchall()
     return str(rv)      #returns return value from db
