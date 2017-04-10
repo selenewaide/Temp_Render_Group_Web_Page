@@ -1,0 +1,27 @@
+Meeting Minutes
+
+Time/Place: 10/4/2017 1pm B003
+Attendees: all
+
+Goals: Sprint 3 Planning, catch up on project status
+
+Achieved: 
+- occupancy heat map on basic website done
+- database schema done
+- weather scraper can write to db
+
+Agreed on to be done by Friday 14/4/2107:
+- populate database (Selene and Dave)
+- design SQL queries in Flask app (Louise)
+- update burndown chart (Dave)
+- research how to do calculations at frontend (averages etc.) (Willie)
+- update backlog from Selene (Louise)
+- send Email to "customer", ask for appointment for Friday 14/4, 11am (Louise)
+
+To be done by Everyone:
+- send log hours from last week to Dave
+- doing daily 10mins stand ups at start of each lunch break
+
+Agreed on doing next part of sprint planning on Friday
+
+Next meeting: Friday 14/4, start of Practical session (11am, room B003)
