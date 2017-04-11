@@ -1,0 +1,47 @@
+
+
+#wrapper { 
+    background-color: #ebebe0;
+    margin-top: 5px;
+    height: 80%; 
+    width: 100%;
+    border: 1px solid #5ba0ac
+        
+}
+#bikemap2 { 
+    height: 100%; 
+    width: 60%;
+/*    border: 1px solid #02b8dd; */
+    float: left
+        
+}
+h2 {
+    font-family: sans-serif;
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+#chart1 { 
+    margin-top: 15px;
+    margin-left: 10px;
+    height: 46%; 
+    width: 38%;
+    border: 1px solid #5ba0ac;
+    float: left
+        
+}
+#chart2 { 
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 46%; 
+    width: 38%;
+    border: 1px solid #5ba0ac;
+    float: left
+        
+}
+
+html, body {height: 100%;
+    background-color: #f7f3de  ;
+    margin: 5px 40px;
+    padding: 0 
+}
+
