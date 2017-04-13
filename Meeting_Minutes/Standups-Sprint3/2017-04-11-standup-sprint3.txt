@@ -1,0 +1,20 @@
+@author louise klodt
+
+Notes for Daily Stand-Ups Sprint 3
+
+-------------------------------------------------------------------
+date/time/place: 11/4/2107 12.10pm - 12.20pm CS building
+attendees: louise, selene
+
+topics:
+selene:
+- making good progress on populating the db; 
+- checked db schema, created test db to populate it
+- doesn't have any problems so far, will proceed
+- on track with things
+
+louise:
+- contacted customer, scheduled meeting for friday 14/4 11am
+- will send confirmation email to customer (satish) this afternoon
+-------------------------------------------------------------------
+

@@ -1,0 +1,29 @@
+Meeting 13/4 2pm B003
+attendees: all
+
+GOALS: finish sprint 3 planning
+
+ACHIEVED: 
+- db is populated with data
+- customer meeting scheduled and done
+- retrospective 2nd sprint done
+
+AGREED ON:
+- Louise: write SQL queries; rewrite flask app; send confirmation email to Satish regarding meeting next week
+- Selene: add column to db: hourly
+- Willie: frontend stuff with real data from db
+- Dave: update Burndown, start writing report, update Backlog for 2nd sprint
+- all scrummasters:
+  send files to Satish:
+  - send backlog (needs be updated for Sprint 2)
+  - meeting minutes
+  - stand up meeting minutes
+  - sprint reviews
+  - retrospectives
+  - burn down chart
+
+Everyone:
+- send hours to Dave for Burndown chart
+
+next meeting:
+Tue, 18 April 2017 12pm, with customer Satish. room tbd.

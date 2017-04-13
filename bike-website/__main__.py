@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'bikeandweather.cnkbtyr1hegq.us-east-1.rds.amazonaws.com'
 app.config['MYSQL_USER'] = 'admin'
 app.config['MYSQL_PASSWORD'] = 'Conv2017'
-app.config['MYSQL_DB'] = 'BikeAndWeather' # 'rdsDataBase'
+app.config['MYSQL_DB'] = 'BikeAndWeather'
 mysql = MySQL(app)
 
 #def index():
@@ -32,7 +32,7 @@ def weather(time_stamp=None):
         resp = make_response(render_template('weather-'+time_stamp+'.json'), 200)
     resp.headers['Content-Type'] = 'application/json; charset=utf-8'
     return resp
-    
+
 @app.route("/stations/")
 @app.route("/stations/<time_stamp>")
 def stations(time_stamp=None):
