@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dublin_Bikes</title>   
+<link type="text/css" rel="stylesheet" href="bikestyle.4.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type = "text/javascript">
+    var map2;
+      function initMap() {
+          var markers = [{"number":42,"name":"SMITHFIELD NORTH","address":"Smithfield North","position":{"lat":53.349562,"lng":-6.278198},"banking":true,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":30,"available_bike_stands":30,"available_bikes":0,"last_update":1490958848000},{"number":30,"name":"PARNELL SQUARE NORTH","address":"Parnell Square North","position":{"lat":53.353462,"lng":-6.265305},"banking":true,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":20,"available_bike_stands":20,"available_bikes":0,"last_update":1490958785000},{"number":32,"name":"PEARSE STREET","address":"Pearse Street","position":{"lat":53.344304,"lng":-6.250427},"banking":true,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":30,"available_bike_stands":10,"available_bikes":20,"last_update":1490959022000},{"number":48,"name":"EXCISE WALK","address":"Excise Walk","position":{"lat":53.347777,"lng":-6.244239},"banking":false,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":40,"available_bike_stands":11,"available_bikes":29,"last_update":1490959147000},{"number":13,"name":"FITZWILLIAM SQUARE WEST","address":"Fitzwilliam Square West","position":{"lat":53.336074,"lng":-6.252825},"banking":false,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":30,"available_bike_stands":3,"available_bikes":27,"last_update":1490958993000},{"number":81,"name":"ST. JAMES HOSPITAL (CENTRAL)","address":"St. James Hospital (Central)","position":{"lat":53.339983,"lng":-6.295594},"banking":false,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":40,"available_bike_stands":38,"available_bikes":2,"last_update":1490959143000},{"number":68,"name":"HANOVER QUAY","address":"Hanover Quay","position":{"lat":53.344115,"lng":-6.237153},"banking":true,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":40,"available_bike_stands":10,"available_bikes":29,"last_update":1490959146000},{"number":74,"name":"OLIVER BOND STREET","address":"Oliver Bond Street","position":{"lat":53.343893,"lng":-6.280531},"banking":false,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":30,"available_bike_stands":28,"available_bikes":2,"last_update":1490958728000},{"number":87,"name":"COLLINS BARRACKS MUSEUM","address":"Collins Barracks Museum","position":{"lat":53.347477,"lng":-6.28525},"banking":true,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":38,"available_bike_stands":37,"available_bikes":1,"last_update":1490958588000},{"number":84,"name":"BROOKFIELD ROAD","address":"Brookfield Road","position":{"lat":53.339005,"lng":-6.300217},"banking":false,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":30,"available_bike_stands":29,"available_bikes":1,"last_update":1490958955000},{"number":54,"name":"CLONMEL STREET","address":"Clonmel Street","position":{"lat":53.336021,"lng":-6.26298},"banking":false,"bonus":false,"status":"OPEN","contract_name":"Dublin","bike_stands":33,"available_bike_stands":18,"available_bikes":15,"last_update":1490959058000}];
+
+var mapOptions2 = {
+    center: {lat: 53.3498, lng: -6.2603},
+    zoom: 12,
+            };
+// create new infowindow object to display data for each location          
+var infoWindow = new google.maps.InfoWindow();    
+// create map with map options as detailed above
+var map2 = new google.maps.Map(document.getElementById('bikemap2'), mapOptions2); 
+
+// get markers for the second map
+for (var j =0; j < markers.length; j++)
+{
+    var data2 = markers[j];
+    //var circlesize = 4;
+    //var circlesize = data2.bike_stands;
+    var myLatLng2 = new google.maps.LatLng(data2.position.lat, data2.position.lng);
+    var circlesize = data2.bike_stands;
+//    document.getElementById("demo2").innerHTML = circlesize;
+    var marker2 = new google.maps.Marker({
+    position: myLatLng2,
+    icon: getCircle(circlesize),    
+    map:map2,
+    title: "#" + data2.number + " " + data2.name
+    });
+    
+
+// display the markers on the map and add event listener to display the info window
+// function is self invoking
+  
+ (function(marker2,data2){
+    google.maps.event.addListener(marker2,"click", function(e){
+    infoWindow.setContent('<div>' + '<b>Station no. </b>'+ data2.number + '</div>'+'<div>' + '<b>Full address: </b>'+ data2.address + '</div>' + '<br>' + '<div>' + '<b>Available bikes: </b>' + data2.available_bikes + '</div>' + '<div>' + '<b>Free stands: </b>' + data2.available_bike_stands + '</div>' + '<div>' + '<b>Total capacity: </b>'+ data2.bike_stands + '</div>' + '<div>' + '<b>Credit cards accepted: </b>'+ data2.banking + '</div>');
+    infoWindow.open(map2, marker2);
+    });
+})(marker2,data2);   
+    
+    
+}          
+}  
+      function getCircle(magnitude) {
+        return {
+          path: google.maps.SymbolPath.CIRCLE,
+          fillColor: 'red',
+          fillOpacity: .8,
+          scale: Math.pow(2, magnitude/10),
+          strokeColor: 'white',
+          strokeWeight: .5
+        };
+      }      
+// second script
+      google.charts.load('current', {'packages':['line','corechart']});
+      google.charts.setOnLoadCallback(
+    function() { // Anonymous function that calls drawChart and drawChart1
+        drawChart(); 
+        drawChart1();
+      });
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Day');
+      data.addColumn('number', 'Guardians of the Galaxy');
+      data.addColumn('number', 'The Avengers');
+      data.addColumn('number', 'Transformers: Age of Extinction');
+
+      data.addRows([
+        [1,  37.8, 80.8, 41.8],
+        [2,  30.9, 69.5, 32.4],
+        [3,  25.4,   57, 25.7],
+        [4,  11.7, 18.8, 10.5],
+        [5,  11.9, 17.6, 10.4],
+        [6,   8.8, 13.6,  7.7],
+        [7,   7.6, 12.3,  9.6],
+        [8,  12.3, 29.2, 10.6],
+        [9,  16.9, 42.9, 14.8],
+        [10, 12.8, 30.9, 11.6],
+        [11,  5.3,  7.9,  4.7],
+        [12,  6.6,  8.4,  5.2],
+        [13,  4.8,  6.3,  3.6],
+        [14,  4.2,  6.2,  3.4]
+      ]);
+
+      var options = {
+        chart: {
+          title: 'Box Office Earnings in First Two Weeks of Opening',
+          subtitle: 'in millions of dollars (USD)'
+        },
+       // width: 900,
+       // height: 500
+      };
+
+      var chart = new google.charts.Line(document.getElementById('chart1'));
+
+      chart.draw(data, options);
+    }
+    // third script - draws second chart
+
+      function drawChart1() {
+
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        data.addRows([
+          ['Mushrooms', 5],
+          ['Onions', 1],
+          ['Olives', 1],
+          ['Zucchini', 1],
+          ['Pepperoni', 2]
+        ]);
+
+        // Set chart options
+        var options = {'title':'How Much Pizza I Ate Last Night',
+                      // 'width':400,
+                      // 'height':300
+                      };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart2'));
+        chart.draw(data, options);
+          }   
+</script>
+    
+
+ <!-- use api key to ensure Googlemaps responds -->
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpRyVBwMrG8-n-UCAYsESggtio4kcUxUQ&callback=initMap">
+</script>
+
+</head>
+<body>
+    <h2>Dublin Bikes.</h2> 
+<div id="wrapper"> 
+<div id="bikemap2"> </div>
+<div id ="chart1"></div>
+<div id ="chart2"></div>
+ </div>  
+
+
+  </body>
+</html>
