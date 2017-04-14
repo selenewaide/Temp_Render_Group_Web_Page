@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import render_template, make_response
+from flask import render_template, make_response, jsonify
 from flask_mysqldb import MySQL
 
 #set up app
@@ -12,16 +12,66 @@ app.config['MYSQL_PASSWORD'] = 'Conv2017'
 app.config['MYSQL_DB'] = 'BikeAndWeather'
 mysql = MySQL(app)
 
-#def index():
- #   return render_template('index2.html')
-
 @app.route("/")
-def connectdb():
-    cur = mysql.connection.cursor() # create cursor to query db
-    cur.execute("SELECT * from BikeData")
-    rv = cur.fetchall()
-    return str(rv)      #returns return value from db
+def index():
+   return make_response(render_template('index3.html'))
 
+# column names from db tables
+staticFields = ["station", "name", "address", "lat", "lng", "banking", "bonus", "contract_name", "bike_stands"]
+dynamicFields = ["station", "status", "available_bike_stands", "available_bikes", "last_update"]
+weatherFields = ["dt", "main", "description", "icon", "temp", "json"]
+
+@app.route("/stations/static")
+def staticStations():
+    """fetches the static station data, converts to a list of dicts, and returns the JSON"""
+    cur = mysql.connection.cursor() # create cursor to query db
+    cur.execute("select * from StationsStatic order by station")
+    rows = cur.fetchall() # tuple of row tuples
+    dicts = []
+    for row in rows:
+        row_dict = dict(zip(staticFields,row)) # {"station": 42...}
+        row_dict['lat'] = str(row_dict['lat']) # convert Decimal('53.340962') to '53.340962'
+        row_dict['lng'] = str(row_dict['lng'])
+        dicts.append(row_dict)
+    return jsonify(dicts)      #returns return value from db
+
+@app.route("/stations/latest")
+def latestStations():
+    """ fetches latest dynamic station data, converts to a list of dicts, and returns the JSON"""
+    cur = mysql.connection.cursor() # create cursor to query db
+    cur.execute("select * from StationsDynamic where (station,last_update) in " +
+        "(select station as sid, max(last_update) as latest from StationsDynamic group by station) order by station")
+    rows = cur.fetchall() # tuple of row tuples (42, 'OPEN', 8, 22, 1492025217)
+    dicts = []
+    for row in rows:
+        row_dict = dict(zip(dynamicFields, row))
+        dicts.append(row_dict)
+    return jsonify(dicts)
+
+@app.route("/stations/history")
+@app.route("/stations/history/<sid>")
+def historyStations(sid):
+    '''fetches occupancy information for a station, incl. weekday index (0 = Mon … 6 = Sun)
+     and hourly index (0 ... 23)'''
+    cur = mysql.connection.cursor() # create cursor to query db
+    cur.execute("""select from_unixtime(last_update) as the_date, weekday(from_unixtime(last_update)) as the_day,
+    hour(from_unixtime(last_update)) as the_hour, station, available_bikes, available_bike_stands
+    from StationsDynamic where station = %s order by station, the_day, the_hour""",(sid,))
+    rows = cur.fetchall() # tuple of row tuple
+    return str(rows)
+
+@app.route("/weather/latest")
+def latestWeather():
+    '''fetches latest weather data, converts to a list of dicts, and returns the JSON'''
+    cur = mysql.connection.cursor() # create cursor to query db
+    cur.execute("select * from WeatherJSON order by dt desc limit 1;")
+    rows = cur.fetchall() # tuple of row tuple
+    row = rows[0]
+    row_dict = dict(zip(weatherFields, row))
+    row_dict['temp'] = str(row_dict['temp']) # convert Decimal('9.5') to '9.5'
+    return jsonify(row_dict)
+
+'''
 @app.route("/weather/")
 @app.route("/weather/<time_stamp>")
 def weather(time_stamp=None):
@@ -43,6 +93,7 @@ def stations(time_stamp=None):
         resp = make_response(render_template('stations-'+time_stamp+'.json'), 200)
     resp.headers['Content-Type'] = 'application/json; charset=utf-8'
     return resp
+'''
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,9 +1,0 @@
-send to Satish:
-
-- send backlog (needs updated for Sprint 2)
-- metting minutes
-- stand up meetings
-- sprint review
-- retrospectives
-- burn down chart
-- send email confirming tuesday meeting (12pm) -> satish will organise room
