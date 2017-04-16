@@ -1,0 +1,8 @@
+{
+  "description": "scattered clouds", 
+  "dt": 1492264800, 
+  "icon": "03d", 
+  "json": "{\"main\": {\"temp\": 12.51, \"temp_min\": 12, \"humidity\": 54, \"pressure\": 1020, \"temp_max\": 13}, \"visibility\": 10000, \"base\": \"stations\", \"wind\": {\"deg\": 280, \"speed\": 7.7}, \"id\": 7778677, \"name\": \"Dublin City\", \"clouds\": {\"all\": 40}, \"coord\": {\"lat\": 53.36, \"lon\": -6.25}, \"sys\": {\"type\": 1, \"id\": 5237, \"sunset\": 1492284417, \"country\": \"IE\", \"message\": 0.0209, \"sunrise\": 1492233834}, \"weather\": [{\"description\": \"scattered clouds\", \"main\": \"Clouds\", \"id\": 802, \"icon\": \"03d\"}], \"cod\": 200, \"dt\": 1492264800}", 
+  "main": "Clouds", 
+  "temp": "12.5"
+}
