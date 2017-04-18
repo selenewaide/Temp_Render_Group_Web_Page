@@ -48,18 +48,6 @@ def latestStations():
         dicts.append(row_dict)
     return jsonify(dicts)
 
-@app.route("/stations/history")
-@app.route("/stations/history/<sid>")
-def historyStations(sid):
-    '''fetches occupancy information for a station, incl. weekday index (0 = Mon … 6 = Sun)
-     and hourly index (0 ... 23)'''
-    cur = mysql.connection.cursor() # create cursor to query db
-    cur.execute("""select from_unixtime(last_update) as the_date, weekday(from_unixtime(last_update)) as the_day,
-    hour(from_unixtime(last_update)) as the_hour, station, available_bikes, available_bike_stands
-    from StationsDynamic where station = %s order by station, the_day, the_hour""",(sid,))
-    rows = cur.fetchall() # tuple of row tuple
-    return str(rows)
-
 @app.route("/weather/latest")
 def latestWeather():
     '''fetches latest weather data, converts to a list of dicts, and returns the JSON'''
@@ -71,6 +59,36 @@ def latestWeather():
     row_dict['temp'] = str(row_dict['temp']) # convert Decimal('9.5') to '9.5'
     return jsonify(row_dict)
 
+
+@app.route("/stations/history")
+@app.route("/stations/history/<sid>")
+def lastTimestampStations(sid):
+    '''fetches the latest (most recent) timestamp from table StationsDynamic'''
+    cur = mysql.connection.cursor() # create cursor to query db
+    cur.execute("select max(last_update) from StationsDynamic where station = %s", (sid,)) #get latest timestamp
+    row = cur.fetchall()
+    latest_timestamp = int(row[0][0]) # latest timestamp in s
+    cur.execute('''select from_unixtime(last_update) as the_date, weekday(from_unixtime(last_update)) as the_day,
+    hour(from_unixtime(last_update)) as the_hour, station, available_bikes, available_bike_stands, last_update
+    from StationsDynamic where station = %s and last_update > %s - 604800
+    order by last_update''', (sid, latest_timestamp,)) #get latest weekly data
+    rows = cur.fetchall()
+    return str(rows)
+'''
+@app.route("/stations/history")
+@app.route("/stations/history/<sid>")
+def historyStations(sid):
+    '''
+'''fetches occupancy information for a station, incl. weekday index (0 = Mon … 6 = Sun)
+     and hourly index (0 ... 23)''' '''
+    cur = mysql.connection.cursor() # create cursor to query db
+    cur.execute("""select from_unixtime(last_update) as the_date, weekday(from_unixtime(last_update)) as the_day,
+    hour(from_unixtime(last_update)) as the_hour, station, available_bikes, available_bike_stands
+    from StationsDynamic where station = %s order by station, the_day, the_hour""",(sid,))
+    rows = cur.fetchall() # tuple of row tuple
+    return str(rows)
+
+'''
 '''
 @app.route("/weather/")
 @app.route("/weather/<time_stamp>")
