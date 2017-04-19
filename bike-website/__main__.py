@@ -66,15 +66,7 @@ def latestWeather():
 def historyOfStation(sid):
     '''fetches average bikes in use information for a particular station, using weekday indexes (0 = Mon … 6 = Sun)
      and hourly index (0 ... 23)''' 
-    cur = mysql.connection.cursor() # create cursor to query db
-    #cur.execute("select max(last_update) from StationsDynamic where station = %s", (sid,)) #get latest timestamp
-    #row = cur.fetchall()
-    #latest_timestamp = int(row[0][0]) # latest timestamp in s
-    #cur.execute('''select from_unixtime(last_update) as the_date, weekday(from_unixtime(last_update)) as the_day,
-    #hour(from_unixtime(last_update)) as the_hour, station, available_bikes, available_bike_stands, last_update
-    #from StationsDynamic where station = %s and last_update > %s - 604800
-    #order by last_update''', (sid, latest_timestamp,)) #get latest weekly data 
-    # 
+    cur = mysql.connection.cursor()
     cur.execute('''select from_unixtime(last_update) as the_date, weekday(from_unixtime(last_update)) as the_day,
     hour(from_unixtime(last_update)) as the_hour, station, available_bikes, available_bike_stands, last_update
     from StationsDynamic where station = %s order by last_update''', (sid,)) #get bike usage data 
@@ -93,8 +85,6 @@ def historyOfStation(sid):
             if i > 0:
                 averages[i] = averages[i - 1]
     return jsonify(list(averages))
-
-
 
 # (datetime.datetime(2017, 4, 11, 10, 55, 8), 1, 10, 42, 3, 27, 1491908108)
 '''
