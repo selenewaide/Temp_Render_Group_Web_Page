@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, make_response, jsonify
 from flask_mysqldb import MySQL
+import numpy as np
 
 #set up app
 app = Flask(__name__) 
@@ -62,18 +63,40 @@ def latestWeather():
 
 @app.route("/stations/history")
 @app.route("/stations/history/<sid>")
-def lastTimestampStations(sid):
-    '''fetches the latest (most recent) timestamp from table StationsDynamic'''
+def historyOfStation(sid):
+    '''fetches average bikes in use information for a particular station, using weekday indexes (0 = Mon … 6 = Sun)
+     and hourly index (0 ... 23)''' 
     cur = mysql.connection.cursor() # create cursor to query db
-    cur.execute("select max(last_update) from StationsDynamic where station = %s", (sid,)) #get latest timestamp
-    row = cur.fetchall()
-    latest_timestamp = int(row[0][0]) # latest timestamp in s
+    #cur.execute("select max(last_update) from StationsDynamic where station = %s", (sid,)) #get latest timestamp
+    #row = cur.fetchall()
+    #latest_timestamp = int(row[0][0]) # latest timestamp in s
+    #cur.execute('''select from_unixtime(last_update) as the_date, weekday(from_unixtime(last_update)) as the_day,
+    #hour(from_unixtime(last_update)) as the_hour, station, available_bikes, available_bike_stands, last_update
+    #from StationsDynamic where station = %s and last_update > %s - 604800
+    #order by last_update''', (sid, latest_timestamp,)) #get latest weekly data 
+    # 
     cur.execute('''select from_unixtime(last_update) as the_date, weekday(from_unixtime(last_update)) as the_day,
     hour(from_unixtime(last_update)) as the_hour, station, available_bikes, available_bike_stands, last_update
-    from StationsDynamic where station = %s and last_update > %s - 604800
-    order by last_update''', (sid, latest_timestamp,)) #get latest weekly data
+    from StationsDynamic where station = %s order by last_update''', (sid,)) #get bike usage data 
     rows = cur.fetchall()
-    return str(rows)
+    counts = np.zeros(168) 
+    sums = np.zeros(168)
+    for row in rows:
+        hour_of_week = int(row[2]) + int(row[1]) * 24
+        counts[hour_of_week] += 1
+        sums[hour_of_week] += row[5]
+    averages = np.zeros(168)
+    for i in range(168):
+        if counts[i] > 0:
+            averages[i] = sums[i] / counts[i]
+        else:
+            if i > 0:
+                averages[i] = averages[i - 1]
+    return jsonify(list(averages))
+
+
+
+# (datetime.datetime(2017, 4, 11, 10, 55, 8), 1, 10, 42, 3, 27, 1491908108)
 '''
 @app.route("/stations/history")
 @app.route("/stations/history/<sid>")
