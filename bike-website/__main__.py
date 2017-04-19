@@ -17,6 +17,10 @@ mysql = MySQL(app)
 def index():
    return make_response(render_template('index3.html'))
 
+@app.route("/bikestyle.4.css")
+def stylesheet():
+   return app.send_static_file('bikestyle.4.css')
+
 # column names from db tables
 staticFields = ["station", "name", "address", "lat", "lng", "banking", "bonus", "contract_name", "bike_stands"]
 dynamicFields = ["station", "status", "available_bike_stands", "available_bikes", "last_update"]
